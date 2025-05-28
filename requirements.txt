@@ -1,0 +1,8 @@
+pandas
+numpy
+sentence-transformers
+elasticsearch
+fastapi
+uvicorn
+scikit-learn
+requests
