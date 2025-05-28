@@ -11,12 +11,11 @@ os.makedirs('data/processed', exist_ok=True)
 df = pd.read_csv('data/raw/amazon_reviews.csv')
 
 # Chọn các cột liên quan
-df = df[['name', 'brand', 'categories', 'reviews.text', 'reviews.rating', 'prices.amountMax']]
+df = df[['name', 'brand', 'categories', 'reviews.text', 'reviews.rating']]
 
 # Xử lý giá trị thiếu
 df = df.dropna(subset=['name'])  # Xóa hàng thiếu 'name'
 df['reviews.text'] = df['reviews.text'].fillna('')  # Điền rỗng cho 'reviews.text'
-df['prices.amountMax'] = df['prices.amountMax'].fillna(df['prices.amountMax'].mean())  # Điền trung bình cho giá
 df['categories'] = df['categories'].fillna('Unknown')  # Điền 'Unknown' cho danh mục
 df['brand'] = df['brand'].fillna('Unknown')  # Điền 'Unknown' cho thương hiệu
 df['reviews.rating'] = df['reviews.rating'].fillna(0)  # Điền 0 cho đánh giá
@@ -44,8 +43,7 @@ df['suggest'] = df['name'].apply(lambda x: {'input': x.split()})
 # Đổi tên cột để tránh dấu chấm
 df = df.rename(columns={
     'reviews.text': 'reviews_text',
-    'reviews.rating': 'reviews_rating',
-    'prices.amountMax': 'prices_amountMax'
+    'reviews.rating': 'reviews_rating'
 })
 
 # Chuyển thành danh sách các tài liệu
